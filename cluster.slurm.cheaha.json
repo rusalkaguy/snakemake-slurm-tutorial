@@ -3,7 +3,7 @@
         "cmdline": "--cluster 'sbatch  -p {cluster.partition} -n {cluster.n} -t {cluster.time}'"
     },
     "__default__" : {
-        "job-name"      : "SN.{rule}",
+        "job-name"      : "SM.{rule}",
         "partition"     : "express",
         "time"          : "02:00:00",
         "ntasks"        : 1,
