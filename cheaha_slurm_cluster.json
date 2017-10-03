@@ -1,0 +1,29 @@
+{
+    "documenation": {
+        "cmdline": "--cluster 'sbatch  -p {cluster.partition} -n {cluster.n} -t {cluster.time}'"
+    },
+    "__default__" : {
+        "job-name"      : "SN.{rule}",
+        "partition"     : "express",
+        "time"          : "02:00:00",
+        "ntasks"        : 1,
+        "cpus-per-task" : 1,
+        "mem-per-cpu"   : 2000,
+        "output"        : "logs/%j.%N.out.txt",
+        "error"         : "logs/%j.%N.err.txt",
+        "mail-user"     : "curtish@uab.edu",
+        "mail-type"     : "ALL"
+    },
+    "short" : {
+        "time"      : "12:00:00",
+        "partition" : "short"
+    },
+    "medium" : {
+        "time"      : "2-02:00:00",
+        "partition" : "medium"
+    },
+    "long" : {
+        "time"      : "6-06:00:00",
+        "partition" : "long"
+    }
+}

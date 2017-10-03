@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#
+# launch snakemake to run jobs on UAB CHEAHA via SLURM
+#
+SM_PARAMS="job-name ntasks cpus-per-task mem-per-cpu partition time mail-user mail-type error output"
+SM_ARGS=""
+for P in ${SM_PARAMS}; do SM_ARGS="$SM_ARGS --$P {cluster.$P}"; done
+    
+snakemake \
+    $* \
+    -j 999 \
+    --cluster-config cheaha_slurm_cluster.json \
+    --cluster "sbatch $SM_ARGS"
