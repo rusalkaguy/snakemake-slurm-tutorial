@@ -1,6 +1,6 @@
 {
     "documenation": {
-        "cmdline": "--cluster 'sbatch  -p {cluster.partition} -n {cluster.n} -t {cluster.time}'"
+        "cmdline": "Use with snakemake --cluster-config cluster.slurm.cheaha.json --cluster 'sbatch --job-name {cluster.job-name} --ntasks {cluster.ntasks} --cpus-per-task {cluster.cpus-per-task} --mem-per-cpu {cluster.mem-per-cpu} --partition {cluster.partition} --time {cluster.time} --mail-user {cluster.mail-user} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output}'"
     },
     "__default__" : {
         "job-name"      : "SM.{rule}",
