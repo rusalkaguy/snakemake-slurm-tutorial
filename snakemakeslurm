@@ -8,6 +8,9 @@ SM_ARGS=""
 for P in ${SM_PARAMS}; do SM_ARGS="$SM_ARGS --$P {cluster.$P}"; done
 echo "SM_ARGS: ${SM_ARGS}"
 
+# our SLURM error/output paths expect a logs/ subdir in PWD
+mkdir -p logs
+
 snakemake \
     $* \
      --latency-wait 30 \
