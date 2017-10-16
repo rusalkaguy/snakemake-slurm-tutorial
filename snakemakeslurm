@@ -1,10 +1,21 @@
 #!/bin/bash
 
 #
+# check for clean
+#
+# https://snakemake.readthedocs.io/en/stable/project_info/faq.html#how-do-i-remove-all-files-created-by-snakemake-i-e-like-make-clean
+if [ "$1" == "clean" ]; then
+    echo 'rm $(snakemake --summary | tail -n+2 | cut -f1)'
+    snakemake --summary | tail -n+2 | cut -f1
+    rm -f $(snakemake --summary | tail -n+2 | cut -f1)
+    exit 0
+fi
+
+#
 # launch snakemake to run jobs on UAB CHEAHA via SLURM
 #
-SM_PARAMS="job-name ntasks cpus-per-task mem-per-cpu partition time mail-user mail-type error output"
-SM_ARGS=""
+SM_PARAMS="job-name ntasks partition time mail-user mail-type error output"
+SM_ARGS="--cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu-mb}"
 for P in ${SM_PARAMS}; do SM_ARGS="$SM_ARGS --$P {cluster.$P}"; done
 echo "SM_ARGS: ${SM_ARGS}"
 
@@ -15,5 +26,5 @@ snakemake \
     $* \
      --latency-wait 30 \
     -j 999 \
-    --cluster-config cluster.slurm.cheaha.json \
+    --cluster-config $(dirname $0)/cluster.slurm.cheaha.json \
     --cluster "sbatch $SM_ARGS"

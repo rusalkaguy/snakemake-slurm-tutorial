@@ -1,3 +1,6 @@
+# insure errors propogate along pipe'd shell commands
+shell.prefix("set -o pipefail; ")
+
 rule all:
     input:
         "report.html"
@@ -8,16 +11,18 @@ rule bwa_map:
         "data/samples/{sample}.fastq"
     output:
         "mapped_reads/{sample}.bam"
+    threads: 4
     shell:
-        "bwa mem {input} | samtools view -Sb - > {output}"
+        "bwa mem -t {threads} {input} | samtools view -Sb - > {output}"
 
 rule samtools_sort:
     input:
         "mapped_reads/{sample}.bam"
     output:
         "sorted_reads/{sample}.bam"
+    threads: 4
     shell:
-        "samtools sort -T sorted_reads/{wildcards.sample} "
+        "samtools sort -@ {threads} -T sorted_reads/{wildcards.sample} "
         "-O bam {input} > {output}"
 
 rule samtools_index:
@@ -42,6 +47,11 @@ rule bcftools_call:
     shell:
         "samtools mpileup -g -f {input.fa} {input.bam} | "
         "bcftools call -mv - > {output}"
+
+rule clean:
+     """Clean up all output for a fresh test run"""
+     shell:
+          "rm -rf report.html mapped_reads sorted_reads calls"
 
 rule report:
     input:

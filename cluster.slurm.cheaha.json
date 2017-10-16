@@ -1,18 +1,22 @@
 {
     "documenation": {
-        "cmdline": "Use with snakemake --cluster-config cluster.slurm.cheaha.json --cluster 'sbatch --job-name {cluster.job-name} --ntasks {cluster.ntasks} --cpus-per-task {cluster.cpus-per-task} --mem-per-cpu {cluster.mem-per-cpu} --partition {cluster.partition} --time {cluster.time} --mail-user {cluster.mail-user} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output}'"
+        "cmdline": "Use with snakemake --cluster-config cluster.slurm.cheaha.json --cluster 'sbatch --job-name {cluster.job-name} --ntasks {cluster.ntasks} --cpus-per-task {threads} --mem-per-cpu {cluster.mem-per-cpu} --partition {cluster.partition} --time {cluster.time} --mail-user {cluster.mail-user} --mail-type {cluster.mail-type} --error {cluster.error} --output {cluster.output}'"
     },
     "__default__" : {
-        "job-name"      : "SM.{rule}",
-        "partition"     : "express",
-        "time"          : "02:00:00",
-        "ntasks"        : 1,
-        "cpus-per-task" : 1,
-        "mem-per-cpu"   : 2000,
-        "output"        : "logs/%j.%N.out.txt",
-        "error"         : "logs/%j.%N.err.txt",
-        "mail-user"     : "curtish@uab.edu",
-        "mail-type"     : "ALL"
+        "job-name"       : "SM.{rule}",
+        "partition"      : "express",
+        "time"           : "02:00:00",
+        "ntasks"         : 1,
+        "cpus-per-task"  : 1,
+        "mem-per-cpu-mb" : 2000,
+        "output"         : "logs/%j.%N.out.txt",
+        "error"          : "logs/%j.%N.err.txt",
+        "mail-user"      : "curtish@uab.edu",
+        "mail-type"      : "ALL"
+    },
+
+    "bwa_map" : {
+	"mem-per-cpu-mb" : 2200
     },
     "short" : {
         "time"      : "12:00:00",
