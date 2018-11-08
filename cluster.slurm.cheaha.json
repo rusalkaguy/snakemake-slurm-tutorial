@@ -11,7 +11,7 @@
         "mem-per-cpu-mb" : 2000,
         "output"         : "logs/%j.%N.out.txt",
         "error"          : "logs/%j.%N.err.txt",
-        "mail-user"      : "curtish@uab.edu",
+        "mail-user"      : "$USER@uab.edu",
         "mail-type"      : "ALL"
     },
 
